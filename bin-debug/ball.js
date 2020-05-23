@@ -21,7 +21,10 @@ var ball = (function () {
     ball.prototype.timerComFunc = function () {
         this.speed = Main.randomRange(1, 3);
         this.shape.graphics.clear();
+        this.shape.graphics.beginFill(0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100), 1);
         this.shape.graphics.lineStyle(2, 0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100));
+        this.shape.graphics.drawCircle(0, 0, 50);
+        this.shape.graphics.endFill();
         switch (this.index) {
             case 1:
                 this.index = 2;
