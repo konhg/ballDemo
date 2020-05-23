@@ -19,6 +19,8 @@ class ball {
 	private index: number = 1;
 	private timerComFunc(): void {
 		this.speed = Main.randomRange(1, 3);
+		this.shape.graphics.clear();
+		this.shape.graphics.lineStyle(2, 0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100));
 		switch (this.index) {
 			case 1:
 				this.index = 2;
