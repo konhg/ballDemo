@@ -16,6 +16,12 @@ class ball {
 		this.timerComFunc();
 
 	}
+	public removeball(): void {
+		egret.Tween.removeTweens(this.shape);
+		this.shape.graphics.clear();
+		this.scene.removeChild(this.shape);
+		this.shape = null;
+	}
 	private index: number = 1;
 	private timerComFunc(): void {
 		this.speed = Main.randomRange(1, 3);

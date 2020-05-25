@@ -18,6 +18,12 @@ var ball = (function () {
         this.shape.y = 50;
         this.timerComFunc();
     };
+    ball.prototype.removeball = function () {
+        egret.Tween.removeTweens(this.shape);
+        this.shape.graphics.clear();
+        this.scene.removeChild(this.shape);
+        this.shape = null;
+    };
     ball.prototype.timerComFunc = function () {
         this.speed = Main.randomRange(1, 3);
         this.shape.graphics.clear();

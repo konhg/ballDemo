@@ -174,68 +174,58 @@ var Main = (function (_super) {
             }, _this);
         });
     };
-    // private textfield: egret.TextField;
-    /**
-     * 创建场景界面
-     * Create scene interface
-     */
-    // private shapeArr: egret.Shape[];
-    // public static wid = document.documentElement.clientWidth;
-    // public static hei = document.documentElement.clientHeight;
     Main.prototype.createGameScene = function () {
+        this.uilayer = new eui.UILayer();
+        this.addChild(this.uilayer);
+        this.shapeArr = [];
         for (var i = 0; i < 10; i++) {
             var b = new ball();
-            b.createBall(this);
+            b.createBall(this.uilayer);
+            this.shapeArr.push(b);
         }
-        // let sky = this.createBitmapByName("bg_jpg");
-        // this.addChild(sky);
-        // let stageW = this.stage.stageWidth;
-        // let stageH = this.stage.stageHeight;
-        // sky.width = stageW;
-        // sky.height = stageH;
-        var topMask = new egret.Shape();
-        topMask.graphics.beginFill(0x26d022, 0.5);
-        topMask.graphics.drawRect(0, 0, this.stage.stageWidth, this.stage.stageHeight);
-        topMask.graphics.endFill();
-        // topMask.y = 33;
-        this.addChild(topMask);
-        // let icon: egret.Bitmap = this.createBitmapByName("egret_icon_png");
-        // this.addChild(icon);
-        // icon.x = 26;
-        // icon.y = 33;
-        // let line = new egret.Shape();
-        // line.graphics.lineStyle(2, 0xffffff);
-        // line.graphics.moveTo(0, 0);
-        // line.graphics.lineTo(0, 117);
-        // line.graphics.endFill();
-        // line.x = 172;
-        // line.y = 61;
-        // this.addChild(line);
-        // let colorLabel = new egret.TextField();
-        // colorLabel.textColor = 0xffffff;
-        // colorLabel.width = stageW - 172;
-        // colorLabel.textAlign = "center";
-        // colorLabel.text = "Hello Egret";
-        // colorLabel.size = 24;
-        // colorLabel.x = 172;
-        // colorLabel.y = 80;
-        // this.addChild(colorLabel);
-        // let textfield = new egret.TextField();
-        // this.addChild(textfield);
-        // textfield.alpha = 0;
-        // textfield.width = stageW - 172;
-        // textfield.textAlign = egret.HorizontalAlign.CENTER;
-        // textfield.size = 24;
-        // textfield.textColor = 0xffffff;
-        // textfield.x = 172;
-        // textfield.y = 135;
-        // this.textfield = textfield;
-        // let button = new eui.Button();
-        // button.label = "Click!";
-        // button.horizontalCenter = 0;
-        // button.verticalCenter = 0;
-        // this.addChild(button);
-        // button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+        this.topMask = new egret.Shape();
+        this.topMask.graphics.beginFill(0x26d022, 0.5);
+        this.topMask.graphics.drawRect(0, 0, this.stage.stageWidth, this.stage.stageHeight);
+        this.topMask.graphics.endFill();
+        this.uilayer.addChild(this.topMask);
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onclick, this);
+        this.text = new egret.TextField();
+        this.text.width = this.stage.stageWidth;
+        this.text.height = this.stage.stageHeight;
+        this.text.lineSpacing = 10;
+        this.text.size = 50;
+        this.text.text = "当前小球数量" + this.shapeArr.length + "\n小球每10秒删除一个\n轻触屏幕增加小球";
+        this.text.textAlign = egret.HorizontalAlign.CENTER;
+        this.text.verticalAlign = egret.VerticalAlign.MIDDLE;
+        // this.text.textColor = 0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100)
+        // this.text.$setTextColor((0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100)))
+        this.addChild(this.text);
+        // text.y = 0//this.stage.stageHeight - text.textHeight;
+        // text.x = 0//(this.stage.stageWidth * 0.5) + (text.textWidth * 0.5);
+        egret.Tween.get(this, { loop: true }).wait(10000).call(this.removeball, this);
+    };
+    Main.prototype.removeball = function () {
+        if (this.shapeArr.length > 0) {
+            this.shapeArr[0].removeball();
+            this.shapeArr.shift();
+        }
+        this.text.text = "当前小球数量" + this.shapeArr.length + "\n小球每10秒删除一个\n轻触屏幕增加小球";
+    };
+    Main.prototype.onclick = function () {
+        // this.text.textColor = 0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100);
+        this.text.text = "当前小球数量" + this.shapeArr.length + "\n小球每10秒删除一个\n轻触屏幕增加小球";
+        this.topMask.graphics.clear();
+        this.topMask.graphics.beginFill(0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100), 0.5);
+        this.topMask.graphics.drawRect(0, 0, this.stage.stageWidth, this.stage.stageHeight);
+        this.topMask.graphics.endFill();
+        if (this.shapeArr.length < 30) {
+            var b = new ball();
+            b.createBall(this);
+            this.shapeArr.push(b);
+        }
+        else {
+            console.log("%c舞台上的球已到达30个", "color:red,font-size:50px");
+        }
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
