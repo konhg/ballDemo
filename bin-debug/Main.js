@@ -167,7 +167,7 @@ var Main = (function (_super) {
         this.uilayer = new eui.UILayer();
         this.addChild(this.uilayer);
         this.shapeArr = [];
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 1; i++) {
             var b = new ball();
             b.createBall(this.uilayer);
             this.shapeArr.push(b);
@@ -187,7 +187,7 @@ var Main = (function (_super) {
         this.text.textAlign = egret.HorizontalAlign.CENTER;
         this.text.verticalAlign = egret.VerticalAlign.MIDDLE;
         this.addChild(this.text);
-        egret.Tween.get(this, { loop: true }).wait(10000).call(this.removeball, this);
+        // egret.Tween.get(this, { loop: true }).wait(10000).call(this.removeball, this);
     };
     Main.prototype.removeball = function () {
         if (this.shapeArr.length > 0) {

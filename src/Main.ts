@@ -111,7 +111,7 @@ class Main extends eui.UILayer {
         this.uilayer = new eui.UILayer();
         this.addChild(this.uilayer);
         this.shapeArr = [];
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 1; i++) {
             var b: ball = new ball();
             b.createBall(this.uilayer);
             this.shapeArr.push(b);
@@ -131,7 +131,7 @@ class Main extends eui.UILayer {
         this.text.textAlign = egret.HorizontalAlign.CENTER;
         this.text.verticalAlign = egret.VerticalAlign.MIDDLE;
         this.addChild(this.text);
-        egret.Tween.get(this, { loop: true }).wait(10000).call(this.removeball, this);
+        // egret.Tween.get(this, { loop: true }).wait(10000).call(this.removeball, this);
     }
     private removeball(): void {
         if (this.shapeArr.length > 0) {

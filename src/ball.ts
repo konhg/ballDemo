@@ -30,8 +30,14 @@ class ball {
 		this.shape = null;
 	}
 	private run(eg: egret.Point): void {
+		if (eg.x < this.radius) {
+			eg.x = this.radius;
+		}
+		if (eg.y < this.radius) {
+			eg.y = this.radius;
+		}
 		let sp = Util.getDistance2(this.shape.x, this.shape.y, eg.x, eg.y);
-		egret.Tween.get(this.shape).to({ x: eg.x, y: eg.y }, sp * this.speed).call(this.timerComFunc, this);
+		egret.Tween.get(this.shape).to({ x: Math.round(eg.x), y: Math.round(eg.y) }, sp * this.speed).call(this.timerComFunc, this);
 
 	}
 	private timerComFunc(): void {
