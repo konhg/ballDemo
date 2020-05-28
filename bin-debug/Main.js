@@ -98,17 +98,6 @@ var Main = (function (_super) {
         this.stage.scaleMode = egret.StageScaleMode.FIXED_NARROW;
         // this.stage.orientation = egret.OrientationMode.PORTRAIT;
     };
-    // public static rx: number;
-    // public static ry: number;
-    Main.randomRange = function (min, max) {
-        return Math.random() * (max - min) + min;
-    };
-    Main.getDistance2 = function (x1, y1, x2, y2) {
-        return Main.getDistance(x2 - x1, y2 - y1);
-    };
-    Main.getDistance = function (x, y) {
-        return Math.sqrt(x * x + y * y);
-    };
     Main.prototype.runGame = function () {
         return __awaiter(this, void 0, void 0, function () {
             var result, userInfo;
@@ -178,7 +167,7 @@ var Main = (function (_super) {
         this.uilayer = new eui.UILayer();
         this.addChild(this.uilayer);
         this.shapeArr = [];
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 5; i++) {
             var b = new ball();
             b.createBall(this.uilayer);
             this.shapeArr.push(b);
@@ -197,11 +186,7 @@ var Main = (function (_super) {
         this.text.text = "当前小球数量" + this.shapeArr.length + "\n小球每10秒删除一个\n轻触屏幕增加小球";
         this.text.textAlign = egret.HorizontalAlign.CENTER;
         this.text.verticalAlign = egret.VerticalAlign.MIDDLE;
-        // this.text.textColor = 0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100)
-        // this.text.$setTextColor((0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100)))
         this.addChild(this.text);
-        // text.y = 0//this.stage.stageHeight - text.textHeight;
-        // text.x = 0//(this.stage.stageWidth * 0.5) + (text.textWidth * 0.5);
         egret.Tween.get(this, { loop: true }).wait(10000).call(this.removeball, this);
     };
     Main.prototype.removeball = function () {
@@ -212,7 +197,6 @@ var Main = (function (_super) {
         this.text.text = "当前小球数量" + this.shapeArr.length + "\n小球每10秒删除一个\n轻触屏幕增加小球";
     };
     Main.prototype.onclick = function () {
-        // this.text.textColor = 0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100);
         this.text.text = "当前小球数量" + this.shapeArr.length + "\n小球每10秒删除一个\n轻触屏幕增加小球";
         this.topMask.graphics.clear();
         this.topMask.graphics.beginFill(0xff0000 + Math.floor(Math.random() * 100) * (0xffffff / 100), 0.5);
